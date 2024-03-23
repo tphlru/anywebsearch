@@ -1,0 +1,6 @@
+googlesearch-python
+brave-search
+duckduckgo_search >= 5.0
+w3lib
+xmltodict
+requests >= 2.31.0
