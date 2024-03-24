@@ -1,0 +1,39 @@
+[project]
+name = "anywebsearch"
+version = "0.1"
+description = "Unified internet search across different search engines: Google, Bing(ddg), Brave, Qwant, Yandex"
+readme = "README.md"
+requires-python = ">=3.8.9"
+authors = [{ name = "Timur Tunkin", email = "ch.houstone@zohomail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet",
+]
+dependencies = [
+    "googlesearch-python",
+    "brave-search",
+    "duckduckgo_search>=5.0",
+    "w3lib>=2.1.2",
+    "requests>=2.31.0",
+    "xmltodict",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/tphlru/anywebsearch"
+Changelog = "https://github.com/tphlru/anywebsearch/releases"
+Issues = "https://github.com/tphlru/anywebsearch/issues"
+CI = "https://github.com/tphlru/anywebsearch/actions"
