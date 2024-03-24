@@ -5,6 +5,8 @@ import time
 
 def brave_search(query, lang: str = None, reverse=None, offset=0, settings: Settings = Settings()):
     # Brave search API
+    if lang is None:
+        lang = settings.language
     try:
         brave_key = str(settings.extra.get('brave_key'))
     except KeyError:

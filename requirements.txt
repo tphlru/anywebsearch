@@ -1,6 +1,6 @@
 googlesearch-python
 brave-search
 duckduckgo_search >= 5.0
-w3lib
-xmltodict
+w3lib>=2.1.2
 requests >= 2.31.0
+xmltodict
