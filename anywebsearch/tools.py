@@ -5,10 +5,19 @@ import random
 
 
 class Settings:
-    def __init__(self, default_lang: str = 'en', num_results: int = 20, **kwargs):
+    def __init__(
+            self,
+            language: str = 'en',
+            num_results: int = 20,
+            merge: bool = True,
+            engines: list = None,
+            **kwargs
+    ):
         """
-        Init search, for settings /
-        You can set additionall api keys (brave, yandex)
+        For settings only.
+        When merge set True, dups will be deleted, and for multi search it will merge results as well.
+        engines is a mandatory parameter for multi search - list of engines to use.
+        You can set additionall settings in kwargs, like api keys (brave, yandex)
         possible:
             brave_key - brave api key
             ya_key - yandex cloud api key
@@ -22,8 +31,11 @@ class Settings:
             if k not in extra_keys:
                 raise KeyError("Unexpected key given:", k)
 
-        self.default_lang = default_lang
+        self.language = language
         self.num_results = num_results
+        self.del_dups = merge  # for single search
+        self.merge = merge  # for multi search
+        self.engines = engines
         self.extra = kwargs
 
 
@@ -63,3 +75,21 @@ def normalise_url(url):
     # Canonicalise url
     url = w3lib.url.canonicalize_url(url)
     return url
+
+
+def merge_results(res_lists: list):
+    """
+        Merge results from diffirent engines by unique url
+    """
+    merged = []
+    uniq_urls = []
+
+    for lst in res_lists:
+        # print("Engine results num =", len(lst))
+        for item in lst:
+            if item.url not in uniq_urls:
+                merged.append(item)
+                uniq_urls.append(item.url)
+
+    # print("Total num =", len(merged))
+    return merged

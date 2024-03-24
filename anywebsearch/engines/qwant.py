@@ -1,10 +1,9 @@
-import random
 import requests
 
-from anywebsearch.tools import SearchResult, Settings, normalise_url, random_agent
+from anywebsearch.tools import SearchResult, Settings, normalise_url, random_agent, merge_results
 
 
-def qwant_search(query, lang: str = 'en', reverse=None, offset=0, settings: Settings = Settings()):
+def qwant_search(query, lang: str = None, reverse=None, offset=0, settings: Settings = Settings()):
     lang_codes = {
         "AR": None,
         "AU": "en_au",
@@ -45,6 +44,8 @@ def qwant_search(query, lang: str = 'en', reverse=None, offset=0, settings: Sett
         "ALL": None,
     }
     headers = {'User-Agent': random_agent()}
+    if lang is None:
+        lang = settings.language
     rlang = lang
     lang = (
         lang_codes[lang.upper()]
@@ -79,5 +80,7 @@ def qwant_search(query, lang: str = 'en', reverse=None, offset=0, settings: Sett
         while len(sr) < settings.num_results:
             i += 10
             sr = [*sr, *qwant_search(query, rlang, reverse=sr, offset=i)]
+            if settings.del_dups is True:
+                sr = merge_results([sr])  # don't merge anything, just del dups
     sr = sr[:settings.num_results]
     return sr
