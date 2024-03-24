@@ -1,13 +1,12 @@
 from .tools import merge_results, Settings
 
-from .engines import google_search
-from .engines import qwant_search
-from .engines import duck_search
+from .engines import google_search, qwant_search, duck_search, brave_search
 
 possible_engines = {
     'google': google_search,
     'qwant': qwant_search,
     'duck': duck_search,  # duck is DuckDuckGo (bing engine)
+    'brave': brave_search,
 }
 
 

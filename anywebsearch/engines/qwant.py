@@ -79,8 +79,8 @@ def qwant_search(query, lang: str = None, reverse=None, offset=0, settings: Sett
         i = 0
         while len(sr) < settings.num_results:
             i += 10
-            sr = [*sr, *qwant_search(query, rlang, reverse=sr, offset=i)]
+            sr = [*sr, *qwant_search(query, rlang, reverse=sr, offset=i, settings=settings)]
             if settings.del_dups is True:
                 sr = merge_results([sr])  # don't merge anything, just del dups
-    sr = sr[:settings.num_results]
+        sr = sr[:settings.num_results]
     return sr

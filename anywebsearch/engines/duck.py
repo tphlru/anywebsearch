@@ -50,8 +50,12 @@ def duck_search(query, lang: str = None, settings: Settings = Settings()):
     sr = DDGS().text(
         query,
         region=lang,
-        max_results=settings.num_results + 10 if settings.del_dups is True else settings.num_results
-        # +10 in case of duplicates, and the excess will be trimmed
+        max_results=(
+            settings.num_results + int(settings.num_results / 4)
+            if settings.del_dups is True
+            else settings.num_results
+        )
+        # +25% in case of duplicates, and the excess will be trimmed
     )
     sr = [
         SearchResult(result['title'], result['body'], normalise_url(result['href']))

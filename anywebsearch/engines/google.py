@@ -10,7 +10,11 @@ def google_search(query, lang: str = None, settings: Settings = Settings()):
     sr = gs.search(
         query,
         advanced=True,
-        num_results=settings.num_results + 10 if settings.del_dups is True else settings.num_results,
+        num_results=(
+            settings.num_results + int(settings.num_results / 4)
+            if settings.del_dups is True
+            else settings.num_results
+        ),
         # +10 in case of duplicates, and the excess will be trimmed
         lang=lang
     )
